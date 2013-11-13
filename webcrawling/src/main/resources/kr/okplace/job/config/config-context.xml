@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	
+	<!-- Set up or detect a System property called "ENVIRONMENT" used to construct a properties file on the classpath.  -->
+	<bean id="environment" class="org.springframework.batch.support.SystemPropertyInitializer">
+		<property name="keyName" value="env" />
+		<property name="defaultValue" value="local" />
+	</bean>
+<!-- 
+	<bean id="configuration" class="org.apache.commons.configuration.PropertiesConfiguration">
+		<constructor-arg index="0" value="config.properties" />
+	</bean>
+ -->
+	<bean id="placeholderProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:kr/okplace/job/config/config-common.properties</value>
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="order" value="1" />
+	</bean>
+
+	<!--  Use this to set additional properties on beans at run time --><!-- 	
+	<bean id="overrideProperties" class="org.springframework.beans.factory.config.PropertyOverrideConfigurer"
+		depends-on="environment">
+		<property name="location" value="classpath:config.properties" />
+		Allow system properties (-D) to override those from file
+		<property name="localOverride" value="true" />
+		<property name="properties">
+			<bean class="java.lang.System" factory-method="getProperties" />
+		</property>
+		<property name="ignoreInvalidKeys" value="true" />
+		<property name="order" value="2" />
+	</bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>kr/okplace/job/message/ValidationMessages</value>
+				<value>kr/okplace/job/message/ResultMessages</value>
+			</list>
+		</property>
+	</bean>
+ -->		
+</beans>

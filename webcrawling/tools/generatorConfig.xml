@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC  "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<classPathEntry location="D:\Repositories\maven\com\oracle\ojdbc6_g\11.1.0.7.0\ojdbc6_g-11.1.0.7.0.jar" />
+
+	<context id="job" targetRuntime="MyBatis3" defaultModelType="conditional">
+		<property name="javaFileEncoding" value="UTF-8" />
+		<property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+		<property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Filter" />
+		</plugin>
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="example$" />
+			<property name="replaceString" value="filter" />
+		</plugin>
+		<plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
+		<plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">
+			<property name="fileName" value="MapperConfig.xml" />
+			<property name="targetPackage" value="kr.okplace.job.data" />
+			<property name="targetProject" value="batchjob" />
+		</plugin>
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="oracle.jdbc.OracleDriver" connectionURL="jdbc:oracle:thin:@//localhost:1521/XE" userId="OKPADM" password="okradm051" />
+		<javaModelGenerator targetPackage="kr.okplace.benefit.domain" targetProject="batchjob" />
+		<sqlMapGenerator targetPackage="kr.okplace.job.data" targetProject="batchjob" />
+		<javaClientGenerator type="MIXEDMAPPER" targetPackage="kr.okplace.job.data" targetProject="batchjob" />
+
+		<table tableName="AREA_CATEG" alias="ca" domainObjectName="AreaCategory">
+			<generatedKey column="AREA_CATEG_SEQ" sqlStatement="select AREA_CATEG_SEQ.nextval from dual" type="pre" />
+			<columnRenamingRule searchString="^CATEG_" replaceString="" />
+			<columnOverride column="AREA_CATEG_SEQ"	property="key" />
+			<columnOverride column="PARENT_SEQ"		property="parentKey" />
+			<columnOverride column="AREA_CATEG_CD"	property="areaCategoryCode" /><!-- 
+			<columnOverride column="CATEG_DEPTH"	property="CATEG_DEPTH" />
+			<columnOverride column="CATEG_ORDER"	property="CATEG_ORDER" />
+			<columnOverride column="CATEG_CODE"		property="CATEG_CODE" />
+			<columnOverride column="CATEG_NAME"		property="CATEG_NAME" />
+			<columnOverride column="POI_ID"			property="POI_ID" /> -->
+			<columnOverride column="BUILDING_X"		property="building.x" />
+			<columnOverride column="BUILDING_Y"		property="building.y" />
+		</table>
+		<table tableName="BENEFIT_CATEG" alias="bt" domainObjectName="BenefitCategory">
+			<generatedKey column="BENEFIT_CATEG_SEQ" sqlStatement="select BENEFIT_CATEG_SEQ.nextval from dual" type="pre" />
+			<columnRenamingRule searchString="^CATEG_" replaceString="" />
+			<columnOverride column="BENEFIT_CATEG_SEQ"		property="key" /><!-- 
+			<columnOverride column="CATEG_GROUP"		property="CATEG_GROUP" />
+			<columnOverride column="CATEG_DEPTH"		property="CATEG_DEPTH" />
+			<columnOverride column="CATEG_ORDER"		property="CATEG_ORDER" />
+			<columnOverride column="CATEG_CODE"		property="CATEG_CODE" />
+			<columnOverride column="CATEG_NAME"		property="CATEG_NAME" /> -->
+		</table>
+		<table tableName="BENEFIT" alias="b" domainObjectName="Benefit">
+			<generatedKey column="BENEFIT_SEQ" sqlStatement="select BENEFIT_SEQ.nextval from dual" type="pre" />
+			<columnOverride column="BENEFIT_SEQ"	property="key" />
+			<columnOverride column="PROVIDER_BENEFIT_SEQ"		property="providerBenefitKey" /><!-- 
+			<columnOverride column="EXTERNAL_KEY"	property="EXTERNAL_KEY" />
+			<columnOverride column="STATUS"			property="STATUS" />
+			<columnOverride column="BENEFIT_NAME"	property="BENEFIT_NAME" />
+			<columnOverride column="ISSUE_DATE"		property="ISSUE_DATE" />
+			<columnOverride column="EXPIRE_DATE"	property="EXPIRE_DATE" />
+			<columnOverride column="POTENT_DEGREE"	property="POTENT_DEGREE" />
+			<columnOverride column="BENEFIT_RATE"	property="BENEFIT_RATE" />
+			<columnOverride column="BENEFIT_AMOUNT"	property="BENEFIT_AMOUNT" />
+			<columnOverride column="NORMAL_PRICE"	property="NORMAL_PRICE" />
+			<columnOverride column="DISCOUNT_PRICE"	property="DISCOUNT_PRICE" />
+			<columnOverride column="BENEFIT_BRIEF"	property="BENEFIT_BRIEF" />
+			<columnOverride column="USE_CONDITIONS"	property="USE_CONDITIONS" />
+			<columnOverride column="BENEFIT_DETAIL"	property="BENEFIT_DETAIL" />
+			<columnOverride column="LINKAGE"		property="LINKAGE" /> -->
+			<columnOverride column="SIDE_INFO"		property="sideInformation" /><!-- 
+			<columnOverride column="CREATE_DATE"	property="CREATE_DATE" />
+			<columnOverride column="UPDATE_DATE"	property="UPDATE_DATE" /> -->
+		</table>
+
+		<table tableName="INDUSTRY_CATEG" alias="ci" domainObjectName="IndustryCategory">
+			<generatedKey column="INDUSTRY_CATEG_SEQ" sqlStatement="select INDUSTRY_CATEG_SEQ.nextval from dual" type="pre" />
+			<columnRenamingRule searchString="^CATEG_" replaceString="" />
+			<columnOverride column="INDUSTRY_CATEG_SEQ"		property="key" />
+			<columnOverride column="PARENT_SEQ"		property="parentKey" />
+			<columnOverride column="INDUSTRY_CATEG_CD"		property="industryCategoryCode" />
+			<columnOverride column="USE_CLASS"		property="useTarget" /><!-- 
+			<columnOverride column="CATEG_DEPTH"	property="CATEG_DEPTH" />
+			<columnOverride column="CATEG_ORDER"	property="CATEG_ORDER" />
+			<columnOverride column="CATEG_CODE"		property="CATEG_CODE" />
+			<columnOverride column="CATEG_NAME"		property="CATEG_NAME" />
+			<columnOverride column="CATEG_RATING"	property="CATEG_RATING" /> -->
+		</table>
+
+		<table tableName="INDUSTRY_CATEG_MAP" alias="cim" domainObjectName="IndustryCategoryMap">
+			<columnOverride column="OKP_CATEG_SEQ"	property="okpCategoryKey" />
+			<columnOverride column="POI_CATEG_SEQ"	property="poiCategoryKey" />
+		</table>
+
+		<table tableName="LOCATION" alias="l" domainObjectName="Location">
+			<generatedKey column="LOCATION_SEQ" sqlStatement="select LOCATION_SEQ.nextval from dual" type="pre" />
+			<columnOverride column="LOCATION_SEQ"		property="key" />
+			<columnOverride column="POI_ID"			property="poiId" />
+			<columnOverride column="AREA_CATEG_CD"	property="areaCategoryCode" />
+			<columnOverride column="XPOS"			property="center.x" />
+			<columnOverride column="YPOS"			property="center.y" />
+		</table>
+
+		<table tableName="MERCHANT" alias="m" domainObjectName="Merchant">
+			<generatedKey column="MERCHANT_SEQ" sqlStatement="select MERCHANT_SEQ.nextval from dual" type="pre" />
+			<columnOverride column="MERCHANT_SEQ"	property="key" />
+			<columnOverride column="PARENT_SEQ"		property="parentKey" />
+			<columnOverride column="EXTERNAL_KEY"	property="externalKey" />
+			<columnOverride column="STATUS"			property="status" />
+			<columnOverride column="INDUSTRY_CATEG_CD"		property="industryCategoryCode" />
+			<columnOverride column="MERCHANT_NAME"	property="merchantName" />
+			<columnOverride column="PHONE"			property="phone" />
+			<columnOverride column="FUNCTION"		property="function" />
+		</table>
+
+		<table tableName="MERCHANT_BENEFIT" alias="mb" domainObjectName="MerchantBenefit">
+			<columnOverride column="BENEFIT_SEQ"		property="benenfitKey" />
+			<columnOverride column="MERCHANT_SEQ"		property="merchantKey" />
+		</table>
+
+		<table tableName="MERCHANT_LOCATION" alias="ml" domainObjectName="MerchantLocation">
+			<columnOverride column="MERCHANT_SEQ"		property="merchantKey" />
+			<columnOverride column="LOCATION_SEQ"		property="locationKey" />
+			<columnOverride column="XNTR"		property="entrance.x" />
+			<columnOverride column="YNTR"		property="entrance.y" />
+			<columnOverride column="ADDRESS"	property="address" />
+		</table>
+
+		<table tableName="PROVIDER_BENEFIT" alias="pv" domainObjectName="ProviderBenefit">
+			<generatedKey column="PROVIDER_BENEFIT_SEQ" sqlStatement="select PROVIDER_BENEFIT_SEQ.nextval from dual" type="pre" />
+			<columnOverride column="PROVIDER_BENEFIT_SEQ"		property="key" />
+			<columnOverride column="CATEG_DEPTH1"	property="categoryDepth1" />
+			<columnOverride column="CATEG_DEPTH2"	property="categoryDepth2" /><!-- 
+			<columnOverride column="USE_YN"			property="USE_YN" />
+			<columnOverride column="LINK_TYPE"		property="LINK_TYPE" />
+			<columnOverride column="PROVIDER_NAME"	property="PROVIDER_NAME" />
+			<columnOverride column="NAME"			property="NAME" />
+			<columnOverride column="CREATE_DATE"	property="CREATE_DATE" />
+			<columnOverride column="UPDATE_DATE"	property="UPDATE_DATE" /> -->
+		</table>
+
+	</context>
+
+</generatorConfiguration> 
