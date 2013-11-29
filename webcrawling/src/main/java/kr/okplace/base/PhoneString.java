@@ -21,72 +21,13 @@ public class PhoneString implements Serializable {
 	private static final Pattern NUMBER_RANGE = Pattern.compile("(\\d+)~(\\d+)");
 	@SuppressWarnings("unused")
 	private static final Pattern NUMBER_LIST = Pattern.compile("[,\\/]");
-
-	public static String getNormalizedTelNo(String telNo) {
-		
-		String[] sa = telNo.split("[^\\d]+");
-		StringBuffer sb = new StringBuffer();
-		for(String s: sa) {
-			sb.append(s);
-		}
-		
-		return sb.toString();
-	}
 	
 	private List<String> phoneList;
 	
 	public PhoneString(String string) {
 		parse(string);
 	}
-	
-	/**
-	 * @return
-	 */
-	public String getNormalizedString() {
-		
-		if(phoneList==null || phoneList.isEmpty()) {
-			return null;
-		}
-		
-		StringBuffer sb = new StringBuffer();
-		String before = null;
-		boolean abbr;
-		for(String phone: phoneList) {
-			
-			if(before==null) {
-				before = phone;
-				sb.append(',').append(phone);
-				continue;
-			}
-			
-			abbr = false;
-			if(before.contains("-")) {
-				for(int i=before.lastIndexOf('-'); i>0; i=before.lastIndexOf('-', i-1)) {
-					if(phone.startsWith(before.substring(0, i))) {
-						sb.append(',').append(phone.substring(i + 1));
-						abbr = true;
-						break;
-					}	
-				}
-			}
-			else {
-				for(int i=before.length()-1; i>0; i--) {
-					if(phone.startsWith(before.substring(0, i))) {
-						sb.append(',').append(phone.substring(i));
-						abbr = true;
-						break;
-					}
-				}
-			}
-			
-			if(!abbr) {
-				before = phone;
-				sb.append(',').append(phone);
-			}
-		}
 
-		return sb.substring(1).toString();
-	}
 	public List<String> getPhoneList() {
 		return phoneList;
 	}
@@ -138,6 +79,70 @@ public class PhoneString implements Serializable {
 		return phoneList!=null && phoneList.size()==1;
 	}
 
+	/**
+	 * @param telNo
+	 * @return
+	 */
+	public static String getNormalizedTelNo(String telNo) {
+		
+		String[] sa = telNo.split("[^\\d]+");
+		StringBuffer sb = new StringBuffer();
+		for(String s: sa) {
+			sb.append(s);
+		}
+		
+		return sb.toString();
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getNormalizedString() {
+		
+		if(phoneList==null || phoneList.isEmpty()) {
+			return null;
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		String before = null;
+		boolean abbr;
+		for(String phone: phoneList) {
+			
+			if(before==null) {
+				before = phone;
+				sb.append(',').append(phone);
+				continue;
+			}
+			
+			abbr = false;
+			if(before.contains("-")) {
+				for(int i=before.lastIndexOf('-'); i>0; i=before.lastIndexOf('-', i-1)) {
+					if(phone.startsWith(before.substring(0, i))) {
+						sb.append(',').append(phone.substring(i + 1));
+						abbr = true;
+						break;
+					}	
+				}
+			}
+			else {
+				for(int i=before.length()-1; i>0; i--) {
+					if(phone.startsWith(before.substring(0, i))) {
+						sb.append(',').append(phone.substring(i));
+						abbr = true;
+						break;
+					}
+				}
+			}
+			
+			if(!abbr) {
+				before = phone;
+				sb.append(',').append(phone);
+			}
+		}
+
+		return sb.substring(1).toString();
+	}
+	
 	/**
 	 * <p>전화번호(String) parsing방법</p>
 	 * <p>comma(,), slash(/)는 분리하여, 국번을 동일하게 부여하고 목록처리한다.</p>
